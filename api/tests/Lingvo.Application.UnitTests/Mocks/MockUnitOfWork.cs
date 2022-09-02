@@ -5,7 +5,7 @@ namespace Lingvo.Application.UnitTests.Mocks;
 
 public static class MockUnitOfWork
 {
-    public static Mock<IUnitOfWork> GetUnitOfWorkFactory()
+    public static Mock<IUnitOfWork> GetUnitOfWork()
     {
         var mock = new Mock<IUnitOfWork>();
         var uowMock = new Mock<IDatabaseConnection>();
