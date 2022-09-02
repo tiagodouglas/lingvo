@@ -23,9 +23,9 @@ public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, OneOf<Jw
     private IDatabaseConnection _unitOfWork;
     private readonly TokenConfig _tokenConfig;
 
-    public AuthenticateHandler(IUnitOfWork unitOfWorkFactory, IOptions<TokenConfig> tokenConfig)
+    public AuthenticateHandler(IUnitOfWork unitOfWork, IOptions<TokenConfig> tokenConfig)
     {
-        _unitOfWork = unitOfWorkFactory.Create("dbContext");
+        _unitOfWork = unitOfWork.Get();
         _tokenConfig = tokenConfig.Value;
     }
 
