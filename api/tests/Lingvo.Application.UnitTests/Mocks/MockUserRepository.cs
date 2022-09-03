@@ -36,6 +36,10 @@ public static class MockUserRepository
         {
             users.Add(user);
         });
+
+        mockRepo.Setup(r => r.GetUserByEmail(userEmail))
+            .ReturnsAsync(users.First(x => x.Email == userEmail));
+        
         mockRepo
             .Setup(r => r.VerifyIfUserExists(userEmail))
             .ReturnsAsync(users.Any(x => x.Email == userEmail));

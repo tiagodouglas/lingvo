@@ -36,6 +36,25 @@ namespace Lingvo.Infrastructure.Domain.Users
                 );
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _db.Connection.QueryFirstOrDefaultAsync<User>(
+                sql: @"
+                 	SELECT  [Id],
+                        [Email],
+						[Password]
+					FROM [dbo].[Users]
+					WHERE [Email] = @Email
+                ",
+                param: new
+                {
+                    Email = email.ToLower(),
+                },
+                transaction: _db.Transaction
+                );
+        }
+
+
         public async Task<bool> VerifyIfUserExists(string email)
         {
             return await _db.Connection.QueryFirstOrDefaultAsync<bool>(

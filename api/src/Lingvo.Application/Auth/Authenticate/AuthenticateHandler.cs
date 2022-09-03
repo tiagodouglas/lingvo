@@ -20,31 +20,20 @@ namespace Lingvo.Application.Auth.Authenticate;
 
 public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, OneOf<Jwt?, UserBadRequest>>
 {
-    private IDatabaseConnection _unitOfWork;
+    private IDatabaseConnection _db;
+    private readonly IUserRepository _userRepository;
     private readonly TokenConfig _tokenConfig;
 
-    public AuthenticateHandler(IUnitOfWork unitOfWork, IOptions<TokenConfig> tokenConfig)
+    public AuthenticateHandler(IUnitOfWork unitOfWork, IOptions<TokenConfig> tokenConfig, IUserRepository userRepository)
     {
-        _unitOfWork = unitOfWork.Get();
+        _db = unitOfWork.Get();
         _tokenConfig = tokenConfig.Value;
+        _userRepository = userRepository;
     }
 
     public async Task<OneOf<Jwt?, UserBadRequest>> Handle(AuthenticateRequest request, CancellationToken cancellationToken)
     {
-        var user = await _unitOfWork.Connection.QueryFirstOrDefaultAsync<User>(
-            sql: @"
-				SELECT  [Id],
-                        [Email],
-						[Password]
-					FROM [dbo].[Users]
-					WHERE [Email] = @Email
-            ",
-            param: new
-            {
-                Email = request.Email.ToLower(),
-            },
-            transaction: _unitOfWork.Transaction
-            );
+        var user = await _userRepository.GetUserByEmail(request.Email);
 
         if (user is null || !BC.Verify(request.Password, user.Password))
         {
