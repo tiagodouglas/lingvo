@@ -6,12 +6,13 @@ networks:
 
 services:
   db-lingvo:
-    image: mcr.microsoft.com/mssql/server:2017-latest
+    image: postgres:14.1-alpine
+    restart: always
     container_name: db_lingvo
     networks:
       - localdev
     volumes:
-      - sqlvolume:/var/opt/mssql      
+      - db-lingvo:/var/lib/postgresql/data      
   lingvo-api:
     entrypoint: ["./wait-for.sh", "mssql:1433", "-t", "120", "--", "dotnet", "Lingvo.API.dll"]
     build:
@@ -27,4 +28,5 @@ services:
       - ./wait-for.sh:/app/wait-for.sh
 
 volumes:
-  sqlvolume:
+  db-lingvo:
+    driver: local
