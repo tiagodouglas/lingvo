@@ -1,0 +1,82 @@
+﻿
+.container {
+    height: 100vh;
+    display: flex;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+    .content form {
+        width: 380px;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        padding-top: 80px;
+        padding-bottom: 80px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 5px;
+        margin: 10px;
+        background-color: #ffffff;
+    }
+
+        .content form h1 {
+            margin-bottom: 24px;
+        }
+
+        .content form input {
+            background: transparent;
+            flex: 1;
+            border: none;
+            outline: none;
+        }
+
+        .content form button {
+            background: #2196F3;
+            height: 56px;
+            border-radius: 10px;
+            border: 0;
+            padding: 0 16px;
+            color: #312e38;
+            width: 100%;
+            font-weight: 500;
+            margin-top: 16px;
+            transition: background-color 0.2s;
+        }
+
+            .content form button:hover {
+                background: #03A9F4;
+            }
+
+        .content form a {
+            color: #000;
+            display: block;
+            margin-top: 24px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+            .content form a:hover {
+                color: #03A9F4;
+            }
+
+.input-container {
+    border-radius: 10px;
+    border: 1px solid #232129;
+    padding: 16px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+    .input-container div {
+        margin-top: 8px;
+    }
+    .input-container svg {
+        margin-right: 16px;
+    }
