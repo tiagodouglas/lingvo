@@ -1,4 +1,5 @@
 ﻿@page "/Login"
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 
 <PageTitle>Login</PageTitle>
 
@@ -15,10 +16,17 @@
                 <input placeholder='Password' name='password' id="password" type="password" />
             </div>
 
-            <button type='button'>Login</button>
+            <button type='button' @onclick="Authenticate">Login</button>
 
-            <a href='forgot'>Create an account</a>
+            <a href='create-account'>Create an account</a>
             <a href='forgot'>Forgot password?</a>
         </form>
     </div>
 </div>
+
+@code {
+    private async Task Authenticate()
+    {
+       await sessionStorage.SetItemAsync("@lingvo:token", "dfhjsdhas");
+    }
+}

@@ -1,4 +1,8 @@
 ﻿@page "/"
+@inject Services.IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +11,4 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
