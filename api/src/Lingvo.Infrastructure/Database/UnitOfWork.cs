@@ -1,19 +1,18 @@
 ﻿using Lingvo.Domain.Common;
 
-namespace Lingvo.Infrastructure.Database
+namespace Lingvo.Infrastructure.Database;
+
+public class UnitOfWork : IUnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    private readonly IDatabaseConnection _dbConnection;
+
+    public UnitOfWork(DatabaseConnection databaseConnection)
     {
-        private readonly IDatabaseConnection _dbConnection;
+        _dbConnection = databaseConnection;
+    }
 
-        public UnitOfWork(DatabaseConnection databaseConnection)
-        {
-            _dbConnection = databaseConnection;
-        }
-
-        public IDatabaseConnection Get()
-        {
-            return _dbConnection;
-        }
+    public IDatabaseConnection Get()
+    {
+        return _dbConnection;
     }
 }

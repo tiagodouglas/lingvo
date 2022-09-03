@@ -1,7 +1,6 @@
-﻿namespace Lingvo.Domain.Common
+﻿namespace Lingvo.Domain.Common;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        IDatabaseConnection Get();
-    }
+    IDatabaseConnection Get();
 }

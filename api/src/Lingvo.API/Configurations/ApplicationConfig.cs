@@ -2,17 +2,16 @@
 using MassTransit.NewIdProviders;
 using Lingvo.Application.MappingProfiles;
 
-namespace Lingvo.API.Configurations
+namespace Lingvo.API.Configurations;
+
+public static class ApplicationConfig
 {
-    public static class ApplicationConfig
+    public static IServiceCollection AddApplicationConfig(this IServiceCollection services)
     {
-        public static IServiceCollection AddApplicationConfig(this IServiceCollection services)
-        {
-            NewId.SetProcessIdProvider(new CurrentProcessIdProvider());
+        NewId.SetProcessIdProvider(new CurrentProcessIdProvider());
 
-            services.AddAutoMapper(typeof(MappingProfile));
+        services.AddAutoMapper(typeof(MappingProfile));
 
-            return services;
-        }
+        return services;
     }
 }

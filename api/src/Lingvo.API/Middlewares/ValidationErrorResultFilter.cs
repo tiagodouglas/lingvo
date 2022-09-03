@@ -4,32 +4,31 @@ using System.Net;
 using Lingvo.Application.Common;
 using Lingvo.Application.Common.Handlers;
 
-namespace Lingvo.API.Middlewares
+namespace Lingvo.API.Middlewares;
+
+public class ValidationErrorResultFilter: IAsyncResultFilter
 {
-    public class ValidationErrorResultFilter: IAsyncResultFilter
+    private readonly ValidationErrorHandler _errorHandler;
+
+    public ValidationErrorResultFilter(INotificationHandler<ValidationError> errorHandler)
     {
-        private readonly ValidationErrorHandler _errorHandler;
+        _errorHandler = (ValidationErrorHandler)errorHandler;
+    }
 
-        public ValidationErrorResultFilter(INotificationHandler<ValidationError> errorHandler)
+    public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
+    {
+        if (_errorHandler.HasErrors)
         {
-            _errorHandler = (ValidationErrorHandler)errorHandler;
+            var errors = _errorHandler.GetErrors();
+
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+            await context.HttpContext.Response.WriteAsJsonAsync(errors)
+                .ConfigureAwait(false);
+
+            return;
         }
 
-        public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
-        {
-            if (_errorHandler.HasErrors)
-            {
-                var errors = _errorHandler.GetErrors();
-
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-
-                await context.HttpContext.Response.WriteAsJsonAsync(errors)
-                    .ConfigureAwait(false);
-
-                return;
-            }
-
-            await next().ConfigureAwait(false);
-        }
+        await next().ConfigureAwait(false);
     }
 }

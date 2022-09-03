@@ -2,42 +2,41 @@
 using System.Data;
 using Lingvo.Domain.Common;
 
-namespace Lingvo.Infrastructure.Database
+namespace Lingvo.Infrastructure.Database;
+
+public class DatabaseConnection: IDisposable, IDatabaseConnection
 {
-    public class DatabaseConnection: IDisposable, IDatabaseConnection
+    public IDbConnection Connection { get; }
+
+    public IDbTransaction Transaction { get; }
+
+    public DatabaseConnection(IDbConnection connection)
     {
-        public IDbConnection Connection { get; }
+        Connection = connection;
 
-        public IDbTransaction Transaction { get; }
+        connection.Open();
 
-        public DatabaseConnection(IDbConnection connection)
-        {
-            Connection = connection;
+        Transaction = connection.BeginTransaction();
+    }
 
-            connection.Open();
+    public void Commit()
+    {
+        Transaction.Commit();
 
-            Transaction = connection.BeginTransaction();
-        }
+        Dispose();
+    }
 
-        public void Commit()
-        {
-            Transaction.Commit();
+    public void Rollback()
+    {
+        Transaction.Rollback();
 
-            Dispose();
-        }
+        Dispose();
+    }
 
-        public void Rollback()
-        {
-            Transaction.Rollback();
+    public void Dispose()
+    {
+        Transaction.Dispose();
 
-            Dispose();
-        }
-
-        public void Dispose()
-        {
-            Transaction.Dispose();
-
-            Connection.Dispose();
-        }
+        Connection.Dispose();
     }
 }

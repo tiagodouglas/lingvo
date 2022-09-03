@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
 
-namespace Lingvo.Domain.Users
-{
-    public interface IUserRepository
-    {
-        Task CreateUser(User user);
-        Task<User> GetUserByEmail(string email);
+namespace Lingvo.Domain.Users;
 
-        Task<bool> VerifyIfUserExists(string email);
-    }
+public interface IUserRepository
+{
+    Task CreateUser(User user);
+    Task<User> GetUserByEmail(string email);
+
+    Task<bool> VerifyIfUserExists(string email);
 }

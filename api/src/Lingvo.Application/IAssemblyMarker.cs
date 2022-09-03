@@ -1,6 +1,5 @@
-﻿namespace Lingvo.Application
+﻿namespace Lingvo.Application;
+
+public interface IAssemblyMarker
 {
-    public interface IAssemblyMarker
-    {
-    }
 }
