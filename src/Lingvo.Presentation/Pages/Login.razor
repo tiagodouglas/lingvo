@@ -2,8 +2,9 @@
 @using System.ComponentModel.DataAnnotations
 @using Lingvo.Presentation.Models
 @inject Services.IAuthenticationService _authService
-@inject Blazored.LocalStorage.ILocalStorageService  _localStorage;
+@inject Blazored.LocalStorage.ILocalStorageService _localStorage;
 @inject NavigationManager _navigationManager;
+@using Microsoft.AspNetCore.WebUtilities
 
 <PageTitle>Lingvo - Login</PageTitle>
 
@@ -53,7 +54,17 @@
 
         if (user != null)
         {
-            _navigationManager.NavigateTo("/");
+            var uri = _navigationManager.ToAbsoluteUri(_navigationManager.Uri);
+            var queryStrings = QueryHelpers.ParseQuery(uri.Query);
+
+            if (queryStrings.TryGetValue("returnUrl", out var returnUrl))
+            {
+                _navigationManager.NavigateTo(returnUrl);
+            }
+            else
+            {
+                _navigationManager.NavigateTo("/");
+            }
         }
     }
 

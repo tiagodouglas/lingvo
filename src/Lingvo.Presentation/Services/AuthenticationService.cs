@@ -32,11 +32,6 @@ public class AuthenticationService : IAuthenticationService
     {
         User = await _httpService.Post<User>("api/user/authenticate", new { email, password });
         await _localStorageService.SetItemAsync("user", User);
-
-        if (User != null)
-        {
-            _navigationManager.NavigateTo("/");
-        }
     }
 
     public async Task Logout()
