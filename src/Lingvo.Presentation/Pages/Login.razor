@@ -22,10 +22,10 @@
                 </div>
 
                 <div class="input-container">
-                    <input placeholder='Password' name='password' id="password" type="password" @bind-value="@loginRequest.Password" />
+                    <input placeholder='Password' name='password' id="password" type="password" @bind-value="@loginRequest.Password"/>
                 </div>
 
-                <button type='button' @onclick="@Authenticate">
+                <button type='submit' @onclick="@Authenticate">
                     <span class="oi oi-account-login" aria-hidden="true"></span> Login 
                 </button>
 
