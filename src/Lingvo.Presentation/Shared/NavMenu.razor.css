@@ -4,7 +4,7 @@
 
 .top-row {
     height: 3.5rem;
-    background-color: #2196F3;
+    background-color: #00b0ff;
 }
 
 .navbar-brand {
@@ -42,12 +42,12 @@
     }
 
         .nav-item ::deep a.active {
-            background-color: #2196F3;
+            background-color: #00b0ff;
             color: white;
         }
 
         .nav-item ::deep a:hover {
-            background-color: #2196F3;
+            background-color: #00b0ff;
             color: white;
         }
 

@@ -2,29 +2,40 @@
 @using System.ComponentModel.DataAnnotations
 @using Lingvo.Presentation.Models
 @inject Services.IAuthenticationService _authService
-@inject Blazored.LocalStorage.ILocalStorageService  _localStorage;
+@inject Blazored.LocalStorage.ILocalStorageService _localStorage;
 @inject NavigationManager _navigationManager;
 @inject Services.IHttpService _api;
-@inject IMatToaster  _toast;
+@inject IMatToaster _toast;
 
 <PageTitle>Lingvo - Create account</PageTitle>
 
 <div class="container">
     <div class="content">
+
         <EditForm EditContext="@editContext">
-            <div class="create-form">
-                <h1>Create account</h1>
 
-                <DataAnnotationsValidator />
-                <ValidationSummary />
+            <div class="create-form mat-elevation-z5">
 
-                <MatTextField Label="Name" Type="text" Outlined="true" @bind-Value="createAccountRequest.Name" Style="width:100%; margin-bottom: 10px;"/>
-                <MatTextField Label="Email" Type="text" Outlined="true" @bind-Value="createAccountRequest.Email" Style="width:100%; margin-bottom: 10px;"/>
-                <MatTextField Label="Password" Type="password" Outlined="true" @bind-Value="createAccountRequest.Password" Style="width:100%; margin-bottom: 10px;"/>
-                <MatTextField Label="Confirm password" Type="password" Outlined="true" @bind-Value="createAccountRequest.Confirm" Style="width:100%; margin-bottom: 10px;"/>
-                <MatButton Raised="true" Type="submit" @onclick="@Create" Style="width:100%; margin-top: 20px;">Create</MatButton>
+                <div style="padding-bottom: 80px;">
+                    @if (loading)
+                    {
+                        <MatProgressBar Indeterminate="true"></MatProgressBar>
+                    }
+                </div>
 
-                <a href='login'><span class="oi oi-arrow-thick-left" aria-hidden="true"></span></a>
+                <div style="padding-left: 20px; padding-right: 20px;">
+                    <h1>Create account</h1>
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <MatTextField Label="Name" Type="text" Outlined="true" @bind-Value="createAccountRequest.Name" Style="width:100%; margin-bottom: 10px;" />
+                    <MatTextField Label="Email" Type="text" Outlined="true" @bind-Value="createAccountRequest.Email" Style="width:100%; margin-bottom: 10px;" />
+                    <MatTextField Label="Password" Type="password" Outlined="true" @bind-Value="createAccountRequest.Password" Style="width:100%; margin-bottom: 10px;" />
+                    <MatTextField Label="Confirm password" Type="password" Outlined="true" @bind-Value="createAccountRequest.Confirm" Style="width:100%; margin-bottom: 10px;" />
+                    <MatButton Raised="true" Type="submit" @onclick="@Create" Style="width:100%; margin-top: 20px;">Create</MatButton>
+
+                    <a href='login'><span class="oi oi-arrow-thick-left" aria-hidden="true"></span></a>
+                </div>
             </div>
         </EditForm>
     </div>
@@ -33,6 +44,7 @@
 @code {
     private CreateAccountRequest createAccountRequest = new CreateAccountRequest();
     private EditContext editContext;
+    private bool loading = false;
 
     protected override void OnInitialized()
     {
@@ -43,7 +55,9 @@
     {
         if (editContext.Validate())
         {
+            loading = true;
             var response = await _api.Post<User>("/api/user", createAccountRequest);
+            loading = false;
 
             if (response != null)
             {

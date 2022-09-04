@@ -5,7 +5,7 @@
 
 @if (_navManager.Uri.Contains("login") || _navManager.Uri.Contains("create-account"))
 {
-    <div style="background-color: #2196F3">
+    <div style="background-color: #00b0ff">
         <MatThemeProvider Theme="@theme">
             @Body
         </MatThemeProvider>
@@ -14,20 +14,23 @@
 }
 else
 {
-    <div class="page">
-        <div class="sidebar">
-            <NavMenu />
-        </div>
-
-        <main>
-            <div class="top-row px-4">
+    <MatThemeProvider Theme="@theme">
+        <div class="page">
+            <div class="sidebar">
+                <NavMenu />
             </div>
 
-            <article class="content px-4">
-                @Body
-            </article>
-        </main>
-    </div>
+            <main>
+                <div class="top-row px-4">
+                </div>
+
+                <article class="content px-4">
+                    @Body
+                </article>
+            </main>
+        </div>
+    </MatThemeProvider>
+
     <MatToastContainer />
 }
 
@@ -40,7 +43,7 @@ else
     MatTheme theme = new MatTheme()
         {
             Primary = "#00b0ff",
-            Secondary = "#40c4ff"       
+            Secondary = "#40c4ff"
         };
 }
 

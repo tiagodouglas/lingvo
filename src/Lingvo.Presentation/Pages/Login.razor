@@ -11,20 +11,29 @@
 <div class="container">
     <div class="content">
         <EditForm EditContext="@editContext">
-            <div class="login-form">
-                <h1>Login</h1>
+            <div class="login-form mat-elevation-z5">
+                <div style="padding-bottom: 80px;">
+                    @if (loading)
+                    {
+                        <MatProgressBar Indeterminate="true"></MatProgressBar>
+                    }
+                </div>
+                <div style="padding-left: 20px; padding-right: 20px;">
+                    <h1>Login</h1>
 
-                <DataAnnotationsValidator />
-                <ValidationSummary />
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
 
-                 <MatTextField Label="Email" Type="text" Outlined="true" @bind-Value="loginRequest.Email" Style="width:100%; margin-bottom: 10px;"/>
+                    <MatTextField Label="Email" Type="text" Outlined="true" @bind-Value="loginRequest.Email" Style="width:100%; margin-bottom: 10px;" />
 
-                 <MatTextField Label="Password" Type="password" Outlined="true" @bind-Value="loginRequest.Password" Style="width:100%"/>
+                    <MatTextField Label="Password" Type="password" Outlined="true" @bind-Value="loginRequest.Password" Style="width:100%" />
 
-                <MatButton Raised="true" Type="submit" @onclick="@Authenticate" Style="width:100%; margin-top: 20px;">Login</MatButton>
-       
-                <a href='create-account'>Create an account</a>
-                <a href='forgot'>Forgot password?</a>
+                    <MatButton Raised="true" Type="submit" @onclick="@Authenticate" Style="width:100%; margin-top: 20px;">Login</MatButton>
+
+                    <a href='create-account'>Create an account</a>
+                    <a href='forgot'>Forgot password?</a>
+
+                </div>
             </div>
         </EditForm>
     </div>
@@ -33,6 +42,7 @@
 @code {
     private LoginRequest loginRequest = new LoginRequest();
     private EditContext editContext;
+    private bool loading = false;
 
     protected override void OnInitialized()
     {
@@ -43,7 +53,9 @@
     {
         if (editContext.Validate())
         {
+            loading = true;
             await _authService.Login(loginRequest.Email, loginRequest.Password);
+            loading = false;
         }
 
         var user = await _localStorage.GetItemAsync<User>("user");
