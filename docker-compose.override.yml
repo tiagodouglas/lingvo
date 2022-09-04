@@ -13,7 +13,7 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - ASPNETCORE_Kestrel__Certificates__Default__Password=Dev!test@123
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-      - ConnectionStrings__db_lingvo=User ID=postgres;Password=postgres;Host=localhost;Port=5432;Database=db_lingvo;Pooling=true;Min Pool Size=0;Max Pool Size=100;Connection Lifetime=0;
+      - ConnectionStrings__db_lingvo=User ID=postgres;Password=postgres;Host=localhost;Port=5432;Database=db_lingvo;
     ports:
       - "5000:80"
       - "5001:443"

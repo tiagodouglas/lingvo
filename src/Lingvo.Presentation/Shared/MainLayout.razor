@@ -1,14 +1,18 @@
-﻿@inject Services.IAuthenticationService AuthenticationService
+﻿@using Blazored.Toast.Configuration
+@inject Services.IAuthenticationService AuthenticationService
 @inherits LayoutComponentBase
 @inject NavigationManager _navManager
 
 @if (_navManager.Uri.Contains("login"))
-{ 
+{
     <div style="background-color: #2196F3">
         @Body
     </div>
+    <BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="10" />
 }
-else {
+else
+{
     <div class="page">
         <div class="sidebar">
             <NavMenu />
@@ -23,6 +27,8 @@ else {
                 @Body
             </article>
         </main>
+        <BlazoredToasts Position="ToastPosition.BottomRight"
+                    Timeout="10" />
     </div>
 }
 

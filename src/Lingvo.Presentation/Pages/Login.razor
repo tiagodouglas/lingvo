@@ -1,32 +1,70 @@
 ﻿@page "/Login"
-@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@using System.ComponentModel.DataAnnotations
+@using Lingvo.Presentation.Models
+@inject Services.IAuthenticationService _authService
+@inject Blazored.LocalStorage.ILocalStorageService  _localStorage;
+@inject NavigationManager _navigationManager;
 
-<PageTitle>Login</PageTitle>
+<PageTitle>Lingvo - Login</PageTitle>
 
 <div class="container">
     <div class="content">
-        <form>
-            <h1>Login</h1>
+        <EditForm EditContext="@editContext">
+            <div class="login-form">
+                <h1>Login</h1>
 
-            <div class="input-container">
-                <input placeholder='Email' name='email' id="email" type="text" />
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="input-container">
+                    <input placeholder='Email' name='email' id="email" type="text" @bind-value="loginRequest.Email" />
+                </div>
+
+                <div class="input-container">
+                    <input placeholder='Password' name='password' id="password" type="password" @bind-value="@loginRequest.Password" />
+                </div>
+
+                <button type='button' @onclick="@Authenticate">Login</button>
+
+                <a href='create-account'>Create an account</a>
+                <a href='forgot'>Forgot password?</a>
             </div>
-
-            <div class="input-container">
-                <input placeholder='Password' name='password' id="password" type="password" />
-            </div>
-
-            <button type='button' @onclick="Authenticate">Login</button>
-
-            <a href='create-account'>Create an account</a>
-            <a href='forgot'>Forgot password?</a>
-        </form>
+        </EditForm>
     </div>
 </div>
 
 @code {
+    private LoginRequest loginRequest = new LoginRequest();
+    private EditContext editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(loginRequest);
+    }
+
     private async Task Authenticate()
     {
-       await sessionStorage.SetItemAsync("@lingvo:token", "dfhjsdhas");
+        if (editContext.Validate())
+        {
+            await _authService.Login(loginRequest.Email, loginRequest.Password);
+        }
+
+        var user = await _localStorage.GetItemAsync<User>("user");
+
+        if (user != null)
+        {
+            _navigationManager.NavigateTo("/");
+        }
+    }
+
+    public class LoginRequest
+    {
+        [Required(ErrorMessage = "Email cannot be empty")]
+        [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
+            ErrorMessage = "Email must be valid"
+        )]
+        public string? Email { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Password cannot be empty")]
+        public string? Password { get; set; } = string.Empty;
     }
 }

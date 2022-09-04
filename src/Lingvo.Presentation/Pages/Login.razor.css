@@ -12,7 +12,7 @@
     justify-content: center;
 }
 
-    .content form {
+    .content .login-form {
         width: 380px;
         text-align: center;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -25,18 +25,18 @@
         background-color: #ffffff;
     }
 
-        .content form h1 {
+        .content .login-form h1 {
             margin-bottom: 24px;
         }
 
-        .content form input {
+        .content .login-form input {
             background: transparent;
             flex: 1;
             border: none;
             outline: none;
         }
 
-        .content form button {
+        .content .login-form button {
             background: #2196F3;
             height: 56px;
             border-radius: 10px;
@@ -49,11 +49,11 @@
             transition: background-color 0.2s;
         }
 
-            .content form button:hover {
+            .content .login-form button:hover {
                 background: #03A9F4;
             }
 
-        .content form a {
+        .content .login-form a {
             color: #000;
             display: block;
             margin-top: 24px;
@@ -61,7 +61,7 @@
             transition: color 0.2s;
         }
 
-            .content form a:hover {
+            .content .login-form a:hover {
                 color: #03A9F4;
             }
 

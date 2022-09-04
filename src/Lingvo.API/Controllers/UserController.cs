@@ -47,7 +47,7 @@ public class UserController : ControllerBase
     /// <param name="request">Email and password information</param>
     /// <returns>Token information</returns>
     [HttpPost]
-    [Route("Authenticate")]
+    [Route("authenticate")]
     [AllowAnonymous]
     [ProducesResponseType(typeof(Jwt), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(UserBadRequest), StatusCodes.Status400BadRequest)]

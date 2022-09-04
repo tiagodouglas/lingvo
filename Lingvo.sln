@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{52278545
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lingvo.Application.UnitTests", "tests\Lingvo.Application.UnitTests\Lingvo.Application.UnitTests.csproj", "{C95B4D20-2E69-4CB7-87E4-58B3C6A5BEE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lingvo.Presentation", "src\Lingvo.Presentation\Lingvo.Presentation.csproj", "{D03F6911-36E0-470F-8926-AD6BF0C98359}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lingvo.Presentation", "src\Lingvo.Presentation\Lingvo.Presentation.csproj", "{D03F6911-36E0-470F-8926-AD6BF0C98359}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

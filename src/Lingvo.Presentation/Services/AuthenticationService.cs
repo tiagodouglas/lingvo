@@ -4,15 +4,6 @@ using Microsoft.AspNetCore.Components;
 
 namespace Lingvo.Presentation.Services;
 
-public interface IAuthenticationService
-{
-    User User { get; }
-    Task Initialize();
-    Task Login(string username, string password);
-    Task Logout();
-}
-
-
 public class AuthenticationService : IAuthenticationService
 {
     private IHttpService _httpService;
@@ -37,10 +28,15 @@ public class AuthenticationService : IAuthenticationService
         User = await _localStorageService.GetItemAsync<User>("user");
     }
 
-    public async Task Login(string username, string password)
+    public async Task Login(string email, string password)
     {
-        User = await _httpService.Post<User>("/users/authenticate", new { username, password });
+        User = await _httpService.Post<User>("api/user/authenticate", new { email, password });
         await _localStorageService.SetItemAsync("user", User);
+
+        if (User != null)
+        {
+            _navigationManager.NavigateTo("/");
+        }
     }
 
     public async Task Logout()

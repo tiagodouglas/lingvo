@@ -1,11 +1,13 @@
+CREATE TABLE public."Users"(
+	"Id" uuid NOT NULL,
+	"Name" varchar(50) NOT NULL,
+	"Email" varchar(50) NOT NULL,
+	"Password" text NOT NULL,
+	"AvatarId" integer,
+	"DateCreated" timestamptz NOT NULL,
+	"DateUpdated" timestamptz,
+	CONSTRAINT "Pk_UserId" PRIMARY KEY ("Id")
 
-CREATE TABLE [dbo].[Users]
-(
-	[Id] UNIQUEIDENTIFIER NOT NULL DEFAULT NEWID(),
-	[Name] VARCHAR(50) NOT NULL,
-	[Email] VARCHAR(50) NOT NULL,
-	[Password] NVARCHAR(MAX) NOT NULL,
-	[DateCreated] DATETIME NOT NULL,
-	[DateUpdated] DATETIME NULL,
-	CONSTRAINT [PK_Users_Id] PRIMARY KEY ([Id] ASC)
-)
+);
+
+ALTER TABLE public."Users" OWNER TO postgres;

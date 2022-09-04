@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using Npgsql;
+using System.Data.SqlClient;
 
 namespace Lingvo.API.Configurations;
 
@@ -8,7 +9,7 @@ public static class MigrationConfig
     {
         try
         {
-            var cnx = new SqlConnection(configuration.GetConnectionString("db_todo"));
+            var cnx = new NpgsqlConnection(configuration.GetConnectionString("db_lingvo"));
             var evolve = new Evolve.Evolve(cnx, msg => logger.LogInformation(msg))
             {
                 Locations = new[] { configuration["Evolve:Location"] },

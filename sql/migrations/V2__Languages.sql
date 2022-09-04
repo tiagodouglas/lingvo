@@ -1,9 +1,0 @@
-
-CREATE TABLE [dbo].[Languages]
-(
-	[Id] INT IDENTITY(1,1) NOT NULL,
-	[Name] VARCHAR(50) NOT NULL,
-	[DateCreated] DATETIME NOT NULL,
-	[DateUpdated] DATETIME NULL,
-	CONSTRAINT [PK_Languages_Id] PRIMARY KEY ([Id] ASC)
-)

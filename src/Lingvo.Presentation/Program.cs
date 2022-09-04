@@ -1,5 +1,6 @@
 using Blazored.LocalStorage;
 using Blazored.SessionStorage;
+using Blazored.Toast;
 using Lingvo.Presentation;
 using Lingvo.Presentation.Services;
 using Microsoft.AspNetCore.Components.Web;
@@ -14,6 +15,7 @@ builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IHttpService, HttpService>();
+builder.Services.AddBlazoredToast();
 
 var host = builder.Build();
 

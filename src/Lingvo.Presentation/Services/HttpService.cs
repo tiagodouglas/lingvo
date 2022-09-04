@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using Blazored.Toast.Services;
 using Lingvo.Presentation.Models;
 using Microsoft.AspNetCore.Components;
 using System.Net;
@@ -8,30 +9,29 @@ using System.Text;
 using System.Text.Json;
 
 namespace Lingvo.Presentation.Services;
-public interface IHttpService
-{
-    Task<T> Get<T>(string uri);
-    Task<T> Post<T>(string uri, object value);
-}
 
 public class HttpService : IHttpService
 {
-    private HttpClient _httpClient;
-    private NavigationManager _navigationManager;
-    private ILocalStorageService _localStorageService;
-    private IConfiguration _configuration;
+    private readonly HttpClient _httpClient;
+    private readonly NavigationManager _navigationManager;
+    private readonly ILocalStorageService _localStorageService;
+    private readonly IConfiguration _configuration;
+    private readonly IToastService _toastService;
 
     public HttpService(
         HttpClient httpClient,
         NavigationManager navigationManager,
         ILocalStorageService localStorageService,
-        IConfiguration configuration
+        IConfiguration configuration,
+        IToastService toastService
     )
     {
         _httpClient = httpClient;
         _navigationManager = navigationManager;
         _localStorageService = localStorageService;
         _configuration = configuration;
+        _httpClient.BaseAddress = new Uri(_configuration["apiUrl"]);
+        _toastService = toastService;
     }
 
     public async Task<T> Get<T>(string uri)
@@ -49,7 +49,7 @@ public class HttpService : IHttpService
 
     // helper methods
 
-    private async Task<T> sendRequest<T>(HttpRequestMessage request)
+    private async Task<T?> sendRequest<T>(HttpRequestMessage request)
     {
         // add jwt auth header if user is logged in and request is to the api url
         var user = await _localStorageService.GetItemAsync<User>("user");
@@ -66,11 +66,12 @@ public class HttpService : IHttpService
             return default;
         }
 
-        // throw exception on error response
         if (!response.IsSuccessStatusCode)
         {
             var error = await response.Content.ReadFromJsonAsync<Dictionary<string, string>>();
-            throw new Exception(error["message"]);
+            _toastService.ShowError(error["message"]);
+
+            return default;
         }
 
         return await response.Content.ReadFromJsonAsync<T>();

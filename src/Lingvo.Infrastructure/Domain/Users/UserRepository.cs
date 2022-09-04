@@ -18,7 +18,7 @@ public class UserRepository: IUserRepository
     public async Task CreateUser(User user)
     {
         var sql = @"
-                INSERT INTO [dbo].[Users] ([Id], [Name], [Email], [Password], [DateCreated])
+                INSERT INTO Public.""Users"" (""Id"", ""Name"", ""Email"", ""Password"", ""DateCreated"")
 	                VALUES (@Id, @Name, @Email, @Password, @DateCreated)
             ";
 
@@ -26,7 +26,7 @@ public class UserRepository: IUserRepository
             sql: sql,
             param: new
             {
-                Id = user.Id.ToString(),
+                Id = user.Id,
                 user.Name,
                 user.Email,
                 user.Password,
@@ -40,11 +40,12 @@ public class UserRepository: IUserRepository
     {
         return await _db.Connection.QueryFirstOrDefaultAsync<User>(
             sql: @"
-                 	SELECT  [Id],
-                        [Email],
-						[Password]
-					FROM [dbo].[Users]
-					WHERE [Email] = @Email
+                 	SELECT ""Id"",
+                           ""Email"",
+						   ""Password"",
+                           ""Name""
+					FROM Public.""Users""
+					WHERE ""Email"" = @Email
                 ",
             param: new
             {
@@ -54,14 +55,14 @@ public class UserRepository: IUserRepository
             );
     }
 
-
     public async Task<bool> VerifyIfUserExists(string email)
     {
         return await _db.Connection.QueryFirstOrDefaultAsync<bool>(
             sql: @"
-                  SELECT TOP 1 1
-                    FROM [dbo].[Users] 
-                    WHERE [Email] = @Email
+                  SELECT 1
+                    FROM Public.""Users""
+                    WHERE ""Email"" = @Email
+                    LIMIT 1
                 ",
             param: new
             {

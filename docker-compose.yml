@@ -13,6 +13,7 @@ services:
       - localdev
     volumes:
       - db-lingvo:/var/lib/postgresql/data      
+      - ./sql/InitializeDatabase.sql:/docker-entrypoint-initdb.d/InitializeDatabase.sql
   lingvo-api:
     entrypoint: ["./wait-for.sh", "mssql:1433", "-t", "120", "--", "dotnet", "Lingvo.API.dll"]
     build:

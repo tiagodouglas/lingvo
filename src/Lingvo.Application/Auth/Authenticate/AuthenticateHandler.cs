@@ -37,7 +37,7 @@ public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, OneOf<Jw
 
         if (user is null || !BC.Verify(request.Password, user.Password))
         {
-            return new UserBadRequest("Email or Password invalid ");
+            return new UserBadRequest("Email or Password is invalid ");
         }
 
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -63,7 +63,10 @@ public class AuthenticateHandler : IRequestHandler<AuthenticateRequest, OneOf<Jw
         return new Jwt
         {
             Token = tokenHandler.WriteToken(token),
-            ExpDate = expDate
+            ExpDate = expDate,
+            Name = user.Name,
+            Email = user.Email,
+            Id = user.Id
         };
     }
 }

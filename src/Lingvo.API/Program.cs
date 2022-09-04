@@ -58,6 +58,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseCors("CorsApi");
+
 app.MapControllers()
     .RequireAuthorization();
 
