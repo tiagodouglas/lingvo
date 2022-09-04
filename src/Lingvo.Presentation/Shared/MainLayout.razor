@@ -16,18 +16,46 @@ else
 {
     <MatThemeProvider Theme="@theme">
         <div class="page">
-            <div class="sidebar">
-                <NavMenu />
-            </div>
+            <MatAppBarContainer>
+                <MatAppBar Fixed="true">
+                    <MatAppBarRow>
+                        <MatAppBarSection>
+                            <MatIconButton Icon="menu" OnClick="@((e) => ButtonClicked())"></MatIconButton>
+                            <MatAppBarTitle>Lingvo - Learn languages </MatAppBarTitle>
+                        </MatAppBarSection>
+                        <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                        </MatAppBarSection>
+                    </MatAppBarRow>
+                </MatAppBar>
 
-            <main>
-                <div class="top-row px-4">
-                </div>
+                <MatAppBarContent>
 
-                <article class="content px-4">
-                    @Body
-                </article>
-            </main>
+                    <MatDrawerContainer Style="height: 70vh;" Mode="@MatDrawerMode.Dismissible">
+                        <MatDrawer @bind-Opened="@Opened">
+                            <MatNavMenu>
+                                <MatNavItem Title="Home" Href="/">
+                                    <MatIcon Icon="home"></MatIcon> Home
+                                </MatNavItem>
+
+                                 <MatNavItem Title="Lessons" Href="/lessons">
+                                    <MatIcon Icon="folder"></MatIcon> Lessons
+                                </MatNavItem>
+
+                                <MatNavItem Title="Profile" Href="/profile">
+                                    <MatIcon Icon="account_circle"></MatIcon> Profile
+                                </MatNavItem>
+
+                                  <MatNavItem Title="Profile" Href="/logout">
+                                    <MatIcon Icon="exit_to_app"></MatIcon> Logout
+                                </MatNavItem>
+                            </MatNavMenu>
+                        </MatDrawer>
+                        <MatDrawerContent>
+                            @Body
+                        </MatDrawerContent>
+                    </MatDrawerContainer>
+                </MatAppBarContent>
+            </MatAppBarContainer>
         </div>
     </MatThemeProvider>
 
@@ -38,6 +66,13 @@ else
     private async Task Logout()
     {
         await AuthenticationService.Logout();
+    }
+
+    bool Opened = false;
+
+    void ButtonClicked()
+    {
+        Opened = !Opened;
     }
 
     MatTheme theme = new MatTheme()
