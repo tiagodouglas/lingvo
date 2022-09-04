@@ -3,7 +3,7 @@
 @inherits LayoutComponentBase
 @inject NavigationManager _navManager
 
-@if (_navManager.Uri.Contains("login"))
+@if (_navManager.Uri.Contains("login") || _navManager.Uri.Contains("create-account"))
 {
     <div style="background-color: #2196F3">
         @Body

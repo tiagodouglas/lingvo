@@ -1,0 +1,84 @@
+﻿@page "/create-account"
+@using System.ComponentModel.DataAnnotations
+@using Lingvo.Presentation.Models
+@inject Services.IAuthenticationService _authService
+@inject Blazored.LocalStorage.ILocalStorageService  _localStorage;
+@inject NavigationManager _navigationManager;
+@inject Services.IHttpService _api;
+@inject IToastService _toast;
+
+<PageTitle>Lingvo - Create account</PageTitle>
+
+<div class="container">
+    <div class="content">
+        <EditForm EditContext="@editContext">
+            <div class="create-form">
+                <h1>Create account</h1>
+
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                  <div class="input-container">
+                    <input placeholder='Name' name='name' id="name" type="text" @bind-value="createAccountRequest.Name" />
+                </div>
+
+                <div class="input-container">
+                    <input placeholder='Email' name='email' id="email" type="text" @bind-value="createAccountRequest.Email" />
+                </div>
+
+                <div class="input-container">
+                    <input placeholder='Password' name='password' id="password" type="password" @bind-value="@createAccountRequest.Password" />
+                </div>
+
+                  <div class="input-container">
+                    <input placeholder='Confirm password' name='Confirm' id="Confirm" type="password" @bind-value="@createAccountRequest.Confirm" />
+                </div>
+
+                <button type='button' @onclick="@Create">Create</button>
+
+                <a href='login'>Back to login</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private CreateAccountRequest createAccountRequest = new CreateAccountRequest();
+    private EditContext editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(createAccountRequest);
+    }
+
+    private async Task Create()
+    {
+        if (editContext.Validate())
+        {
+            var response = await _api.Post<User>("/api/user", createAccountRequest);
+
+            if (response != null)
+            {
+                _toast.ShowSuccess("Account created");
+                _navigationManager.NavigateTo("login");
+            }
+        }
+    }
+
+    public class CreateAccountRequest
+    {
+        [Required(ErrorMessage = "Name cannot be empty")]
+        public string? Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email cannot be empty")]
+        [RegularExpression(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
+            ErrorMessage = "Email must be valid"
+        )]
+        public string? Email { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Password cannot be empty")]
+        public string? Password { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Confirm password cannot be empty")]
+        [Compare(nameof(Password), ErrorMessage = "Passwords don't match.")]
+        public string? Confirm { get; set; } = string.Empty;
+    }
+}
