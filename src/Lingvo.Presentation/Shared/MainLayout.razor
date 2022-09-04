@@ -20,7 +20,7 @@ else
 
         <main>
             <div class="top-row px-4">
-                <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+                <a href="/" @onclick="Logout">Log out</a>
             </div>
 
             <article class="content px-4">
@@ -30,6 +30,13 @@ else
         <BlazoredToasts Position="ToastPosition.BottomRight"
                     Timeout="10" />
     </div>
+}
+
+@code {
+    private async Task Logout()
+    {
+        await AuthenticationService.Logout();
+    }
 }
 
 

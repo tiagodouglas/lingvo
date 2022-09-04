@@ -62,7 +62,7 @@ public class HttpService : IHttpService
         // auto logout on 401 response
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
-            _navigationManager.NavigateTo("logout");
+            _navigationManager.NavigateTo("login");
             return default;
         }
 
