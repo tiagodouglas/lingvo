@@ -17,18 +17,12 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
-                <div class="input-container">
-                    <input placeholder='Email' name='email' id="email" type="text" @bind-value="loginRequest.Email" />
-                </div>
+                 <MatTextField Label="Email" Type="text" Outlined="true" @bind-Value="loginRequest.Email" Style="width:100%; margin-bottom: 10px;"/>
 
-                <div class="input-container">
-                    <input placeholder='Password' name='password' id="password" type="password" @bind-value="@loginRequest.Password"/>
-                </div>
+                 <MatTextField Label="Password" Type="password" Outlined="true" @bind-Value="loginRequest.Password" Style="width:100%"/>
 
-                <button type='submit' @onclick="@Authenticate">
-                    <span class="oi oi-account-login" aria-hidden="true"></span> Login 
-                </button>
-
+                <MatButton Raised="true" Type="submit" @onclick="@Authenticate" Style="width:100%; margin-top: 20px;">Login</MatButton>
+       
                 <a href='create-account'>Create an account</a>
                 <a href='forgot'>Forgot password?</a>
             </div>

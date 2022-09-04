@@ -5,7 +5,7 @@
 @inject Blazored.LocalStorage.ILocalStorageService  _localStorage;
 @inject NavigationManager _navigationManager;
 @inject Services.IHttpService _api;
-@inject IToastService _toast;
+@inject IMatToaster  _toast;
 
 <PageTitle>Lingvo - Create account</PageTitle>
 
@@ -18,23 +18,11 @@
                 <DataAnnotationsValidator />
                 <ValidationSummary />
 
-                  <div class="input-container">
-                    <input placeholder='Name' name='name' id="name" type="text" @bind-value="createAccountRequest.Name" />
-                </div>
-
-                <div class="input-container">
-                    <input placeholder='Email' name='email' id="email" type="text" @bind-value="createAccountRequest.Email" />
-                </div>
-
-                <div class="input-container">
-                    <input placeholder='Password' name='password' id="password" type="password" @bind-value="@createAccountRequest.Password" />
-                </div>
-
-                  <div class="input-container">
-                    <input placeholder='Confirm password' name='Confirm' id="Confirm" type="password" @bind-value="@createAccountRequest.Confirm" />
-                </div>
-
-                <button type='button' @onclick="@Create">Create</button>
+                <MatTextField Label="Name" Type="text" Outlined="true" @bind-Value="createAccountRequest.Name" Style="width:100%; margin-bottom: 10px;"/>
+                <MatTextField Label="Email" Type="text" Outlined="true" @bind-Value="createAccountRequest.Email" Style="width:100%; margin-bottom: 10px;"/>
+                <MatTextField Label="Password" Type="password" Outlined="true" @bind-Value="createAccountRequest.Password" Style="width:100%; margin-bottom: 10px;"/>
+                <MatTextField Label="Confirm password" Type="password" Outlined="true" @bind-Value="createAccountRequest.Confirm" Style="width:100%; margin-bottom: 10px;"/>
+                <MatButton Raised="true" Type="submit" @onclick="@Create" Style="width:100%; margin-top: 20px;">Create</MatButton>
 
                 <a href='login'><span class="oi oi-arrow-thick-left" aria-hidden="true"></span></a>
             </div>
@@ -59,7 +47,7 @@
 
             if (response != null)
             {
-                _toast.ShowSuccess("Account created");
+                _toast.Add("Account created", MatToastType.Success);
                 _navigationManager.NavigateTo("login");
             }
         }

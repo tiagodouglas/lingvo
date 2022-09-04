@@ -6,10 +6,11 @@
 @if (_navManager.Uri.Contains("login") || _navManager.Uri.Contains("create-account"))
 {
     <div style="background-color: #2196F3">
-        @Body
+        <MatThemeProvider Theme="@theme">
+            @Body
+        </MatThemeProvider>
     </div>
-    <BlazoredToasts Position="ToastPosition.BottomRight"
-                Timeout="10" />
+    <MatToastContainer />
 }
 else
 {
@@ -26,9 +27,8 @@ else
                 @Body
             </article>
         </main>
-        <BlazoredToasts Position="ToastPosition.BottomRight"
-                    Timeout="10" />
     </div>
+    <MatToastContainer />
 }
 
 @code {
@@ -36,6 +36,12 @@ else
     {
         await AuthenticationService.Logout();
     }
+
+    MatTheme theme = new MatTheme()
+        {
+            Primary = "#00b0ff",
+            Secondary = "#40c4ff"       
+        };
 }
 
 

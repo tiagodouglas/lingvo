@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using Blazored.Toast.Services;
 using Lingvo.Presentation.Models;
+using MatBlazor;
 using Microsoft.AspNetCore.Components;
 using System.Net;
 using System.Net.Http.Headers;
@@ -16,14 +17,14 @@ public class HttpService : IHttpService
     private readonly NavigationManager _navigationManager;
     private readonly ILocalStorageService _localStorageService;
     private readonly IConfiguration _configuration;
-    private readonly IToastService _toastService;
+    private readonly IMatToaster _toastService;
 
     public HttpService(
         HttpClient httpClient,
         NavigationManager navigationManager,
         ILocalStorageService localStorageService,
         IConfiguration configuration,
-        IToastService toastService
+        IMatToaster toastService
     )
     {
         _httpClient = httpClient;
@@ -69,7 +70,7 @@ public class HttpService : IHttpService
         if (!response.IsSuccessStatusCode)
         {
             var error = await response.Content.ReadFromJsonAsync<Dictionary<string, string>>();
-            _toastService.ShowError(error["message"]);
+            _toastService.Add(error["message"], MatToastType.Danger);
 
             return default;
         }
