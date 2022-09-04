@@ -1,0 +1,15 @@
+﻿@inject Services.IAuthenticationService AuthenticationService
+@page "/logout"
+
+@code
+{
+    protected async override void OnInitialized()
+    {
+        await LogoutUser();
+    }
+
+    private async Task LogoutUser()
+    {
+        await AuthenticationService.Logout();
+    }
+}

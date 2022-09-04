@@ -25,7 +25,9 @@
                     <input placeholder='Password' name='password' id="password" type="password" @bind-value="@loginRequest.Password" />
                 </div>
 
-                <button type='button' @onclick="@Authenticate">Login</button>
+                <button type='button' @onclick="@Authenticate">
+                    <span class="oi oi-account-login" aria-hidden="true"></span> Login 
+                </button>
 
                 <a href='create-account'>Create an account</a>
                 <a href='forgot'>Forgot password?</a>
