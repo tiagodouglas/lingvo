@@ -1,11 +1,10 @@
-﻿using MassTransit;
-using System;
+﻿using System;
 
-namespace Lingvo.Domain.Lessons;
+namespace Lingvo.Application.Lessons;
 
-public class Lesson
+public record LessonResponse
 {
-    public Guid Id { get; set; } = NewId.NextSequentialGuid();
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public Guid UserId { get; set; }
     public Guid LanguageId { get; set; }

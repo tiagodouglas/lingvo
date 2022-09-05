@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MassTransit;
+using System;
 
 namespace Lingvo.Domain.Texts;
 
 public class Text
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = NewId.NextSequentialGuid();
     public string Name { get; set; }
     public string AudioUri { get; set; }
     public string Body { get; set; }

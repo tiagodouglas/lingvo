@@ -30,7 +30,7 @@ public class UserRepository: IUserRepository
                 user.Name,
                 user.Email,
                 user.Password,
-                DateCreated = DateTime.Now
+                user.DateCreated
             },
             transaction: _db.Transaction
             );

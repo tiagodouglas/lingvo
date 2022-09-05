@@ -20,4 +20,10 @@
     <ProjectReference Include="..\Lingvo.Domain\Lingvo.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Lessons\GetLessonById\" />
+    <Folder Include="Lessons\GetLessons\" />
+    <Folder Include="Lessons\DeleteLesson\" />
+  </ItemGroup>
+
 </Project>

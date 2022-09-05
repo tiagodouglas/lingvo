@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Lingvo.Domain.Common;
 using Lingvo.Domain.Users;
 using BC = BCrypt.Net.BCrypt;
+using System;
 
 namespace Lingvo.Application.Users.CreateUser;
 
@@ -31,6 +32,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserRequest, OneOf<UserRe
         var created = _mapper.Map<User>(request);
         created.Email = created.Email.ToLower();
         created.Password = BC.HashPassword(request.Password);
+        created.DateCreated = DateTime.UtcNow;
         await _userRepository.CreateUser(created);
         _db.Commit();
 
