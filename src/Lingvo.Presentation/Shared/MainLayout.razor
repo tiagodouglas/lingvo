@@ -30,7 +30,7 @@ else
 
                 <MatAppBarContent>
 
-                    <MatDrawerContainer Style="height: 70vh;" Mode="@MatDrawerMode.Dismissible">
+                    <MatDrawerContainer Style="height: 100vh;" Mode="@MatDrawerMode.Dismissible">
                         <MatDrawer @bind-Opened="@Opened">
                             <MatNavMenu>
                                 <MatNavItem Title="Home" Href="/">
@@ -50,7 +50,7 @@ else
                                 </MatNavItem>
                             </MatNavMenu>
                         </MatDrawer>
-                        <MatDrawerContent>
+                        <MatDrawerContent Style="display: flex;">
                             @Body
                         </MatDrawerContent>
                     </MatDrawerContainer>
