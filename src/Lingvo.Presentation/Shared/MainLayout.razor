@@ -75,12 +75,18 @@ else
     void ButtonClicked()
     {
         Opened = !Opened;
-        DimBackground = Opened ? "background-color: rgba(0,0,0,.32);" : "";
+        SetBackground();
     }
 
     void CloseDrawer()
     {
         Opened = false;
+        SetBackground();
+    }
+
+    void SetBackground()
+    {
+        DimBackground = Opened ? "background-color: rgba(0,0,0,.32);" : "";
     }
 
     MatTheme theme = new MatTheme()
