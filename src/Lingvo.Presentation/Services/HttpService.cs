@@ -48,11 +48,8 @@ public class HttpService : IHttpService
         return await sendRequest<T>(request);
     }
 
-    // helper methods
-
     private async Task<T?> sendRequest<T>(HttpRequestMessage request)
     {
-        // add jwt auth header if user is logged in and request is to the api url
         var user = await _localStorageService.GetItemAsync<User>("user");
         var isApiUrl = !request.RequestUri.IsAbsoluteUri;
         if (user != null && isApiUrl)
@@ -60,7 +57,6 @@ public class HttpService : IHttpService
 
         using var response = await _httpClient.SendAsync(request);
 
-        // auto logout on 401 response
         if (response.StatusCode == HttpStatusCode.Unauthorized)
         {
             _navigationManager.NavigateTo("login");
