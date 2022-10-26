@@ -1,4 +1,5 @@
 ﻿@page "/lessons"
+@using Lingvo.Presentation.Models
 <PageTitle>Lingvo - Lessons</PageTitle>
 @attribute [Authorize]
 
@@ -7,11 +8,23 @@
         <h3>Lessons</h3>
 
         <div>
-        
+            <MatTable Items="@lessons" DebounceMilliseconds="150" class="mat-elevation-z5" Style="width: 100%:">
+                <MatTableHeader >
+                    <th>Name</th>
+                    <th>Language</th>
+                    <th>Date</th>
+                </MatTableHeader>
+                <MatTableRow>
+                    <td>@context.Name</td>
+                    <td>@context.Language</td>
+                    <td>@context.DateCreated</td>
+                </MatTableRow>
+            </MatTable>
+
         </div>
     </div>
 </div>
 
 @code {
-
+    Lesson[] lessons;
 }

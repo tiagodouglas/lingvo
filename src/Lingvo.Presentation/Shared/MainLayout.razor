@@ -50,7 +50,7 @@ else
                                 </MatNavItem>
                             </MatNavMenu>
                         </MatDrawer>
-                        <MatDrawerContent Style="@DimBackground" @onclick="CloseDrawer">                            
+                        <MatDrawerContent Style="@Overlay" @onclick="CloseDrawer">                            
                             @Body
                         </MatDrawerContent>
                     </MatDrawerContainer>
@@ -70,23 +70,26 @@ else
 
     bool Opened = false;
 
-    string DimBackground = string.Empty;
+    string Overlay = string.Empty;
 
     void ButtonClicked()
     {
         Opened = !Opened;
-        SetBackground();
+        SetOverlay();
     }
 
     void CloseDrawer()
     {
         Opened = false;
-        SetBackground();
+        SetOverlay();
     }
 
-    void SetBackground()
+    void SetOverlay()
     {
-        DimBackground = Opened ? "background-color: rgba(0,0,0,.32);" : "";
+        Overlay = Opened ? @"    
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;" : "";
     }
 
     MatTheme theme = new MatTheme()
