@@ -7,17 +7,51 @@
     <div class="content">
         <h3>Lessons</h3>
 
+        <div class="app-fab--absolute">
+            <MatFAB Icon="@MatIconNames.Add"></MatFAB>
+        </div>
+
         <div>
-            <MatTable Items="@lessons" DebounceMilliseconds="150" class="mat-elevation-z5" Style="width: 100%:">
-                <MatTableHeader >
-                    <th>Name</th>
-                    <th>Language</th>
-                    <th>Date</th>
+            <MatTable Items="@lessons" class="mat-elevation-z5">
+                <MatTableHeader>
+                    <th><div style="width: 350px;">Name</div></th>
+                    <th><div style="width: 100px;">Language</div></th>
+                    <th><div style="width: 100px;">Date</div></th>
+                    <th><div style="width: 20px;"></div></th>
+                    <th><div style="width: 20px;"></div></th>
+                    <th><div style="width: 20px;"></div></th>
                 </MatTableHeader>
                 <MatTableRow>
-                    <td>@context.Name</td>
-                    <td>@context.Language</td>
-                    <td>@context.DateCreated</td>
+                    <td>
+                        <div style="text-align: center;">
+                            @context.Name
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align: center;">
+                            @context.Language
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align: center;">
+                            @context.DateCreated
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align: center;">
+                            <MatIconButton Icon="delete"></MatIconButton>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align: center;">
+                            <MatIconButton Icon="create"></MatIconButton>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align: center;">
+                            <MatIconButton Icon="visibility"></MatIconButton>
+                        </div>
+                    </td>
                 </MatTableRow>
             </MatTable>
 
@@ -26,5 +60,31 @@
 </div>
 
 @code {
-    Lesson[] lessons;
+    Lesson[] lessons = new Lesson[]
+    {
+        new Lesson
+        {
+            Name = "World faces most dangerous decade since WW2",
+            Language = "English",
+            DateCreated = DateTime.UtcNow
+        },
+          new Lesson
+        {
+            Name = "Rishi Sunak will not go to COP27 climate summit next month",
+            Language = "English",
+            DateCreated = DateTime.UtcNow
+        },
+          new Lesson
+        {
+            Name = "Iran protests escalate as crackdown continues",
+            Language = "English",
+            DateCreated = DateTime.UtcNow
+        },
+          new Lesson
+        {
+            Name = "Zimbabwe shock Pakistan with thrilling one-run victory",
+            Language = "English",
+            DateCreated = DateTime.UtcNow
+        }
+    };
 }

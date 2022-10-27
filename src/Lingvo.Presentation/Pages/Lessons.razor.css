@@ -8,6 +8,7 @@
     margin-left: 200px;
 }
 
-.tableHeader {
-    width: 100%;
+.app-fab--absolute {
+    position: fixed;
+    right: 2rem;
 }
