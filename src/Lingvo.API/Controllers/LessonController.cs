@@ -1,4 +1,5 @@
 ﻿using Lingvo.Application.Lessons.CreateLesson;
+using Lingvo.Application.Lessons.GetLesson;
 using Lingvo.Domain.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -33,6 +34,25 @@ namespace Lingvo.API.Controllers
 
             return created.Match<IActionResult>(
                valid => CreatedAtAction(nameof(CreateLesson), new { id = valid?.Id }, valid),
+               badRequest => BadRequest(badRequest)
+               );
+        }
+
+
+        /// <summary>
+        /// Get all lessons
+        /// </summary>
+        /// <param name="request">Returns all lessons from the user</param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Getlesson([FromQuery] GetLessonRequest request)
+        {
+            var lessons = await _mediator.Send(request);
+
+            return lessons.Match<IActionResult>(
+               valid => Ok(valid),
                badRequest => BadRequest(badRequest)
                );
         }

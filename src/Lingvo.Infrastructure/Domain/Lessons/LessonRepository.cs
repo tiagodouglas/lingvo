@@ -48,7 +48,7 @@ public class LessonRepository: ILessonRepository
                     ""LanguageId"",
                     ""DateCreated"",
                     ""DateUpdated""
-                Public.""Lessons"" 
+                FROM Public.""Lessons"" 
                 WHERE ""UserId"" = @UserId
             ";
 
@@ -109,7 +109,7 @@ public class LessonRepository: ILessonRepository
     public async Task DeleteLesson(Guid lessonId)
     {
         var sql = @"          
-            DELTE FROM Public.""Lessons""
+            DELETE FROM Public.""Lessons""
             WHERE ""Id"" = @Id
             ";
         await _db.Connection.QueryAsync(

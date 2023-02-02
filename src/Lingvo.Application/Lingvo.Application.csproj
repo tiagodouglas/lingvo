@@ -6,6 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Lessons\DeleteLesson\**" />
+    <Compile Remove="Lessons\GetLessonById\**" />
+    <Compile Remove="Lessons\GetLessons\**" />
+    <EmbeddedResource Remove="Lessons\DeleteLesson\**" />
+    <EmbeddedResource Remove="Lessons\GetLessonById\**" />
+    <EmbeddedResource Remove="Lessons\GetLessons\**" />
+    <None Remove="Lessons\DeleteLesson\**" />
+    <None Remove="Lessons\GetLessonById\**" />
+    <None Remove="Lessons\GetLessons\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Dapper" Version="2.0.123" />
@@ -18,12 +30,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lingvo.Domain\Lingvo.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Lessons\GetLessonById\" />
-    <Folder Include="Lessons\GetLessons\" />
-    <Folder Include="Lessons\DeleteLesson\" />
   </ItemGroup>
 
 </Project>
